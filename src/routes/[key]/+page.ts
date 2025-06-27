@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import type { PageLoad } from "../$types";
 import { decodeUrl } from "$lib/generateUrl";
 
