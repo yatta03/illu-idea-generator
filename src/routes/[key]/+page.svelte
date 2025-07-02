@@ -1,24 +1,67 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { getRandomUrl } from "$lib/generateUrl";
+  import { encodeUrl, getRandomUrl } from "$lib/generateUrl";
   import ColorPalette from "../../components/ColorPalette.svelte";
   import WordBox from "../../components/WordBox.svelte";
+  import PaletteVisual from "../../components/PaletteVisual.svelte";
 
   const { data } = $props();
   const colors = $derived(data.colors || []);
   const words = $derived(data.words || []);
-  const paletteInx = $derived(data.paletteInx);
   const wordInxes = $derived(data.wordInxes);
 
   function goRandom(isChangeColor = true, isChangeWord = true) {
-    const key: string = getRandomUrl(isChangeColor, isChangeWord, paletteInx, wordInxes);
-    goto(`./${key}`);
+    const key: string = getRandomUrl(isChangeColor, isChangeWord, colors, wordInxes);
+    goto(`/${key}`);
+  }
+
+  function goAssignedColor(newColors: string[]) {
+    const key: string = encodeUrl(newColors, wordInxes);
+    goto(`/${key}`);
   }
 </script>
 
-<button onclick={() => goRandom(true, true)}>regenerate all</button>
-<button onclick={() => goRandom(true, false)}>click for palette</button>
-<ColorPalette {colors} />
+<PaletteVisual {colors} {goRandom} />
 
-<button onclick={() => goRandom(false, true)}>click for words</button>
-<WordBox {words} />
+<div class="fw-container">
+  <div class="content">
+    <ColorPalette {colors} {goAssignedColor} />
+  </div>
+  <div class="side-btn-container">
+    <button onclick={() => goRandom(true, false)}>click for palette</button>
+  </div>
+</div>
+
+<div class="fw-container">
+  <div class="content">
+    <WordBox {words} />
+  </div>
+  <div class="side-btn-container">
+    <button onclick={() => goRandom(false, true)}>click for words</button>
+  </div>
+</div>
+
+<style>
+  .fw-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 90%;
+    flex-wrap: nowrap;
+  }
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .side-btn-container {
+    margin-left: 20px;
+  }
+  .side-btn-container button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+</style>

@@ -9,7 +9,6 @@ export const load: PageLoad = ({ params }) => {
 
   return data as {
     colors: string[];
-    paletteInx: number;
     words: string[];
     wordInxes: number[];
   };
