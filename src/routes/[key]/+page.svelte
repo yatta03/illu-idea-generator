@@ -12,12 +12,12 @@
 
   function goRandom(isChangeColor = true, isChangeWord = true) {
     const key: string = getRandomUrl(isChangeColor, isChangeWord, colors, wordInxes);
-    goto(`/${key}`);
+    goto(`./${key}`);
   }
 
   function goAssignedColor(newColors: string[]) {
     const key: string = encodeUrl(newColors, wordInxes);
-    goto(`/${key}`);
+    goto(`./${key}`);
   }
 </script>
 
