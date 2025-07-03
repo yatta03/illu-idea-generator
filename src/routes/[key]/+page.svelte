@@ -4,6 +4,7 @@
   import ColorPalette from "../../components/ColorPalette.svelte";
   import WordBox from "../../components/WordBox.svelte";
   import PaletteVisual from "../../components/PaletteVisual.svelte";
+  import LittleDonutBtn from "../../components/LittleDonutBtn.svelte";
 
   const { data } = $props();
   const colors = $derived(data.colors || []);
@@ -22,22 +23,27 @@
 </script>
 
 <PaletteVisual {colors} {goRandom} />
+<div
+  class="lrmargin-box"
+  style="
+    --color1: {colors[0]};"
+>
+  <div class="fw-container">
+    <div class="content">
+      <ColorPalette {colors} {goAssignedColor} />
+    </div>
+    <div class="side-btn-container">
+      <LittleDonutBtn {colors} {goRandom} isChangeColor={true} isChangeWord={false} />
+    </div>
+  </div>
 
-<div class="fw-container">
-  <div class="content">
-    <ColorPalette {colors} {goAssignedColor} />
-  </div>
-  <div class="side-btn-container">
-    <button onclick={() => goRandom(true, false)}>click for palette</button>
-  </div>
-</div>
-
-<div class="fw-container">
-  <div class="content">
-    <WordBox {words} />
-  </div>
-  <div class="side-btn-container">
-    <button onclick={() => goRandom(false, true)}>click for words</button>
+  <div class="fw-container">
+    <div class="content">
+      <WordBox {words} />
+    </div>
+    <div class="side-btn-container">
+      <LittleDonutBtn {colors} {goRandom} isChangeColor={false} isChangeWord={true} />
+    </div>
   </div>
 </div>
 
@@ -46,9 +52,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px auto;
+    margin: 30px auto;
     max-width: 90%;
     flex-wrap: nowrap;
+    margin-bottom: 50px;
+  }
+  .lrmargin-box {
+    z-index: 1;
+    min-width: 75%;
+    margin: -30px auto 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px var(--color1);
   }
   .content {
     display: flex;
@@ -58,10 +72,5 @@
   }
   .side-btn-container {
     margin-left: 20px;
-  }
-  .side-btn-container button {
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
   }
 </style>

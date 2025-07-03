@@ -32,6 +32,7 @@
     --color3: {colors[2]};
     --color4: {colors[3]};
     --color5: {colors[4]};
+    z-index: 10;
   "
 >
   <defs>
