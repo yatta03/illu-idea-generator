@@ -47,6 +47,24 @@
   function cpHoverLeave() {
     isCopied = false;
   }
+  function isLightColor(hex: string) {
+    hex = hex.replace("#", "");
+    if (hex.length === 3) {
+      hex = hex
+        .split("")
+        .map((c) => c + c)
+        .join("");
+    }
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    console.log(luminance);
+    return luminance < 0.6;
+  }
+
+  let tooltipLight: boolean = $derived(isLightColor(colors[0]));
 </script>
 
 <div class="palette-container">
@@ -63,7 +81,7 @@
       <div class="color-block" style="background-color: {c};"></div>
       <button class="tooltip" onclick={(e) => cpClipboard(e)} onmouseleave={cpHoverLeave}>
         <p class="color-label">{c}</p>
-        <p class="tooltiptext">
+        <p class="tooltiptext {tooltipLight ? 'tooltipLight' : ''}">
           {#if isCopied}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16"
               ><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
@@ -149,7 +167,10 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-
+  .tooltip .tooltiptext.tooltipLight {
+    background-color: #fff;
+    border: 1px solid #555;
+  }
   .tooltip .tooltiptext::after {
     content: "";
     position: absolute;
@@ -160,6 +181,9 @@
     border-style: solid;
     border-color: #555 transparent transparent transparent;
     transform: rotate(180deg);
+  }
+  .tooltip .tooltiptext.tooltipLight::after {
+    border-color: #555 transparent transparent transparent;
   }
 
   .tooltip:hover .tooltiptext {

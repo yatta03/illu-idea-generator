@@ -23,31 +23,40 @@
 </script>
 
 <PaletteVisual {colors} {goRandom} />
-<div
-  class="lrmargin-box"
-  style="
+<div class="bg" style="--color5:{colors[4]};">
+  <div
+    class="lrmargin-box"
+    style="
     --color1: {colors[0]};"
->
-  <div class="fw-container">
-    <div class="content">
-      <ColorPalette {colors} {goAssignedColor} />
+  >
+    <div class="fw-container">
+      <div class="content">
+        <ColorPalette {colors} {goAssignedColor} />
+      </div>
+      <div class="side-btn-container">
+        <LittleDonutBtn {colors} {goRandom} isChangeColor={true} isChangeWord={false} />
+      </div>
     </div>
-    <div class="side-btn-container">
-      <LittleDonutBtn {colors} {goRandom} isChangeColor={true} isChangeWord={false} />
-    </div>
-  </div>
 
-  <div class="fw-container">
-    <div class="content">
-      <WordBox {words} />
-    </div>
-    <div class="side-btn-container">
-      <LittleDonutBtn {colors} {goRandom} isChangeColor={false} isChangeWord={true} />
+    <div class="fw-container">
+      <div class="content">
+        <WordBox {words} />
+      </div>
+      <div class="side-btn-container">
+        <LittleDonutBtn {colors} {goRandom} isChangeColor={false} isChangeWord={true} />
+      </div>
     </div>
   </div>
 </div>
 
 <style>
+  .bg {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-top: -318.75px;
+    background-color: color-mix(in srgb, var(--color5) 60%, transparent);
+  }
   .fw-container {
     display: flex;
     justify-content: center;
@@ -60,9 +69,10 @@
   .lrmargin-box {
     z-index: 1;
     min-width: 75%;
-    margin: -30px auto 20px auto;
+    margin: 280px auto 20px auto;
     border-radius: 8px;
     box-shadow: 0 2px 6px var(--color1);
+    background-color: #fff;
   }
   .content {
     display: flex;
