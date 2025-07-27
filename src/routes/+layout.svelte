@@ -4,14 +4,14 @@
 <footer class="footer">
   <div class="footer-item">
     <a href="https://github.com/yatta03/illu-idea-generator" target="_blank" rel="noopener" class="icon-link">
-      <img src="/github.svg" alt="GitHub" class="icon" />
+      <img src={import.meta.env.BASE_URL + "github.svg"} alt="GitHub" class="icon" />
       <span>GitHub Repository</span>
     </a>
   </div>
   <div class="footer-item">
     <p>contact:</p>
     <a href="mailto:thogasec@gmail.com" class="icon-link">
-      <img src="/gmail.svg" alt="Gmail" class="icon" />
+      <img src={import.meta.env.BASE_URL + "gmail.svg"} alt="Gmail" class="icon" />
       <span>thogasec@gmail.com</span>
     </a>
   </div>
