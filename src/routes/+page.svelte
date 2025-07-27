@@ -40,7 +40,7 @@
     padding: 8px 12px;
     font-size: 22px;
     font-weight: bold;
-    color: #9cddc8;
+    color: #f9f9f9;
     background-color: #633d2e;
     border-radius: 6px;
     border: none;
